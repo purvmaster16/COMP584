@@ -1,0 +1,97 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5295"
+  },
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/user/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Post", "Put" ],
+      "DownstreamPathTemplate": "/api/user/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5219
+        }
+      ],
+      "FileCacheOptions": {
+        "TtlSeconds": 0
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/product/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Post" ],
+      "DownstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5267
+        }
+      ],
+      "FileCacheOptions": {
+        "TtlSeconds": 0
+      }
+    }
+    //{
+    //  "UpstreamPathTemplate": "/gateway/user/{userID}",
+    //  "UpstreamHttpMethod": [ "Get" ],
+    //  "DownstreamPathTemplate": "/api/user/{userID}",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 5219
+    //    }
+    //  ]
+    //},
+    //{
+    //  "UpstreamPathTemplate": "/gateway/user",
+    //  "UpstreamHttpMethod": [ "Post" ],
+    //  "DownstreamPathTemplate": "/api/user",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 5219
+    //    }
+    //  ]
+    //},
+    //{
+    //  "UpstreamPathTemplate": "/gateway/product/{url}",
+    //  "UpstreamHttpMethod": [ "Get", "Delete" ],
+    //  "DownstreamPathTemplate": "/api/product/{url}",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 5267
+    //    }
+    //  ],
+    //  "RateLimitOptions": {
+    //    "EnableRateLimiting": true,
+    //    "Period": "10s",
+    //    "PeriodTimespan": 10,
+    //    "Limit": 3
+    //  }
+    //}
+    //{
+    //  "UpstreamPathTemplate": "/gateway/product/{productID}",
+    //  "UpstreamHttpMethod": [ "Get", "Delete" ],
+    //  "DownstreamPathTemplate": "/api/product/{productID}",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 5267
+    //    }
+    //  ],
+    //  "RateLimitOptions": {
+    //    "EnableRateLimiting": true,
+    //    "Period": "10s",
+    //    "PeriodTimespan": 10,
+    //    "Limit": 1
+    //  }
+    //}
+  ]
+}

@@ -1,0 +1,69 @@
+<div>
+  <!-- ngx-datatable-filter -->
+  <fieldset class="form-group">
+    <div class="form-row">
+      <label  *ngIf="showRecordLimitSelector">Show
+        <select name="users-list-select" [ngModel]="paginationObj?.pageSize"
+          class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+          (change)="updateLimit($event)">
+          <option value="{{val}}" *ngFor="let val of pageSizeList">{{val}}</option>
+        </select>
+        entries</label>
+      <button *ngIf="gridOptions.AddRow" type="button" placement="bottom" (click)="gridOptions.AddRow.onClick()"
+        class="btn btn-success btn-icon round" [ngbTooltip]="gridOptions.AddRow.text"
+        [ngClass]="{'disabled': gridOptions.AddRow.disabled()}" [disabled]="gridOptions.AddRow.disabled()"
+        [class]="gridOptions.AddRow?.cssClass">
+        <i class="ft-plus"></i>
+      </button>
+    </div>
+  </fieldset>
+  <div>
+    <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
+      [footerHeight]="50" rowHeight="auto" [limit]="paginationObj?.pageSize" [rows]="sourceData" [scrollbarH]="true"
+      [scrollbarV]="false" [columns]="sourceHeader" [externalPaging]="true" [externalSorting]="true"
+      [count]="totalCount" (page)="pageChange($event)" (sort)="onSort($event)" [offset]="paginationObj?.pageNumber"
+      [sorts]="[{ prop: shortProp, dir: shortDir }]">
+      <ng-container *ngFor=" let columnDet of sourceHeader">
+        <ngx-datatable-column *ngIf="columnDet?.isVisible != false" name="{{columnDet.name}}" prop="{{columnDet.prop}}"
+          [width]="columnDet.width" [minWidth]="columnDet.minWidth" [sortable]="columnDet.enableSorting"
+          [draggable]="columnDet.draggable" [canAutoResize]="columnDet.autoRes" [cellClass]="columnDet.cellClass"
+          [frozenLeft]="columnDet.frozenLeft" [frozenRight]="columnDet.frozenRight"
+          [headerClass]="columnDet.headerClass">
+          <ng-template let-column="column" class="custom-header-display " height="100" ngx-datatable-header-template>
+            <div>
+              <span class="wrap-header">
+                <b>{{columnDet.name}}</b>
+              </span>
+              <div *ngIf="columnDet.enableFilter && columnDet.filter">
+                <input type="text" [(ngModel)]="columnDet.filter.value" class="form-control"
+                  (keyup.enter)="onFilter(columnDet)" *ngIf="columnDet.filter.type === FilterType.Text"
+                  placeholder='Filter {{column.name}}' />
+                <select *ngIf="columnDet.filter.type === FilterType.Dropdown" [(ngModel)]="columnDet.filter.value"
+                  class="form-control" (ngModelChange)="onFilter(columnDet)">
+                  <option value="">All</option>
+                  <option *ngFor="let option of columnDet.filterOptions" [value]="option.Value">{{option.Text}}</option>
+                </select>
+              </div>
+            </div>
+          </ng-template>
+          <ngx-datatable-column>
+            <ng-template let-row="row" let-rowIndex="rowIndex" let-value="value" height="100"
+              ngx-datatable-cell-template>
+              <span *ngIf="((!row.isEditable || (!columnDet.editTemplate)) && !columnDet.cellTemplate )">
+                {{value}}
+              </span>
+              <div *ngIf="((!row.isEditable || (!columnDet.editTemplate)) && columnDet.cellTemplate)">
+                <ng-container
+                  *ngTemplateOutlet="columnDet.cellTemplate; context: {$implicit : row, rowIndex: rowIndex}"></ng-container>
+              </div>
+              <div *ngIf="(row.isEditable && columnDet.editTemplate)">
+                <ng-container
+                  *ngTemplateOutlet="columnDet.editTemplate; context: {$implicit : row, rowIndex: rowIndex, fieldDetail: columnDet.fieldDetail}"></ng-container>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable-column>
+      </ng-container>
+    </ngx-datatable>
+  </div>
+</div>

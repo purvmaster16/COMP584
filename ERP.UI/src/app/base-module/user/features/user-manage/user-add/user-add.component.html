@@ -1,0 +1,186 @@
+<div class="card">
+  <div class="card-body">
+    <!-- header media -->
+    <div class="media">
+      <a href="javascript:void(0);" class="mr-25">
+        <!-- <img [src]="avatarImage" class="rounded mr-50" alt="profile image" height="76" width="80" /> -->
+        <img src="assets/images/portrait/small/avatar-s-11.jpg" class="rounded mr-50" alt="profile image" height="76" width="80" />
+      </a>
+      <!-- upload and reset button -->
+      <div class="media-body mt-75 ml-1">
+        <button
+          (click)="file.click()"
+          for="account-upload"
+          class="btn btn-sm btn-primary mb-75 mr-75"
+          rippleEffect
+        >
+          Upload
+        </button>
+        <input
+          type="file"
+          #file
+          id="account-upload"
+          hidden
+          accept="image/*"
+          (change)="uploadImage($event)"
+        />
+        <button class="btn btn-sm btn-outline-secondary mb-75" rippleEffect>Reset</button>
+        <p>Allowed JPG, GIF or PNG. Max size of 800kB</p>
+      </div>
+      <!--/ upload and reset button -->
+    </div>
+    <!--/ header media -->
+
+    <!-- form -->
+    <form
+      #genralUserForm="ngForm"
+      class="validate-form mt-2"
+      [appMatchPassword]="['password', 'confirmPassword']"
+      (ngSubmit)="onSubmit(genralUserForm)"
+      novalidate
+      autocomplete="off"
+    >
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input
+              type="text"
+              [(ngModel)]="User.firstName"
+              class="form-control"
+              id="firstName"
+              required
+              name="firstName"
+              placeholder="First Name"
+              #firstName="ngModel"
+            />
+          </div>
+          <div *ngIf="(genralUserForm.submitted && genralUserForm.invalid) || firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+            <small class="form-text text-danger" *ngIf="firstName.errors?.required">First name is required!</small>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="account-name">Last Name</label>
+            <input
+              type="text"
+              [(ngModel)]="User.lastName"
+              class="form-control"
+              id="account-name"
+              name="lastName"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="account-username">Username *</label>
+            <input
+              type="text"
+              [(ngModel)]="User.userName"
+              class="form-control"
+              id="userName"
+              name="username"
+              placeholder="Username"
+              required=""
+              #userName="ngModel"
+            />
+          </div>
+          <div *ngIf="(genralUserForm.submitted && genralUserForm.invalid) || userName.invalid && (userName.dirty || userName.touched)" class="error">
+            <small class="form-text text-danger" *ngIf="userName.errors?.required">Username is required!</small>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="account-e-mail">E-mail *</label>
+            <input
+              type="email"
+              [(ngModel)]="User.email"
+              class="form-control"
+              id="email"
+              required
+              email
+              name="email"
+              placeholder="Email"
+              #email="ngModel"
+            />
+          </div>
+          <div *ngIf="(genralUserForm.submitted && genralUserForm.invalid) || email.invalid && (email.dirty || email.touched)" class="error">
+            <small class="form-text text-danger" *ngIf="email.errors?.required">Email is required!</small>
+            <small class="form-text text-danger" *ngIf="email.touched && email.errors?.email">Enter a valid email address!</small>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="account-company">Company</label>
+            <input
+              type="text"
+              [(ngModel)]="User.company"
+              class="form-control"
+              id="account-company"
+              name="company"
+              placeholder="Company name"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-6" *ngIf="!IsPassword">
+          <div class="form-group">
+            <label for="account-company">Password *</label>
+            <input
+              type="password"
+              [(ngModel)]="User.passwordHash"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Password"
+              appPasswordPattern
+              required
+              #password="ngModel"
+            />
+          </div>
+          <div *ngIf="(genralUserForm.submitted && genralUserForm.invalid) || password.invalid && (password.dirty || password.touched)" class="error">
+            <small class="form-text text-danger" *ngIf="password.errors?.required">Password is required!</small>
+            <small class="form-text text-danger" *ngIf="password.touched && password.errors?.invalidPassword">Password should have minimum 8 characters, at least 1 uppercase
+              letter, 1 lowercase letter and 1 number!</small>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6" *ngIf="!IsPassword">
+          <div class="form-group">
+            <label for="account-company">Confirm Password *</label>
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="User.confirmPassword"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="confirmPassword"
+              required
+              #confirmPassword="ngModel"
+            />
+          </div>
+          <div *ngIf="(genralUserForm.submitted && genralUserForm.invalid) || confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="error">
+            <small class="form-text text-danger" *ngIf="confirmPassword.errors?.required">Confirm password is required!</small>
+            <small class="form-text text-danger" *ngIf="confirmPassword.touched && confirmPassword.errors?.passwordMismatch">Passwords doesnot match!</small>
+          </div>
+        </div>
+        <div class="col-12">
+          <button
+            type="submit"
+            class="btn btn-primary mt-2 mr-1"
+            rippleEffect
+          >
+            Save changes
+          </button>
+          <button
+            type="reset"
+            class="btn btn-outline-secondary mt-2"
+            rippleEffect
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+    <!--/ form -->
+  </div>
+</div>

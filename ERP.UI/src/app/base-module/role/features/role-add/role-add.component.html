@@ -1,0 +1,47 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+    <!-- users edit start -->
+    <section class="app-user-edit">
+      <div class="card">
+        <div class="card-body">
+          <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
+            <!-- users edit account form start -->
+            <form #roleForm="ngForm" class="form-validate" (ngSubmit)="onSubmit(roleForm)">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="roleName">Role-Name</label>
+                    <input
+                      type="text"
+                      id="roleName"
+                      class="form-control"
+                      placeholder="Rolename"
+                      name="roleName"
+                      required
+                      [(ngModel)]="role.roleName"
+                      #roleName="ngModel"
+                    />
+                    <div *ngIf="(roleForm.submitted && roleForm.invalid) || roleName.invalid && (roleName.dirty || roleName.touched)" class="invalid-form">
+                      <small class="form-text text-danger" *ngIf="roleName.errors?.required">This field is required!</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                  <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
+                    Save Changes
+                  </button>
+                  <button type="button" routerLink="/apps/role/role-list" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
+                    Role List
+                  </button>
+                </div>
+              </div>
+              
+            </form>
+            <!-- users edit account form ends -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- users edit ends -->
+  </div>
+</div>

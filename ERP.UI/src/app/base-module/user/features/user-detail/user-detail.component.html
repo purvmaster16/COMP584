@@ -1,0 +1,100 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+      <!-- page users view start -->
+      <section class="app-user-view">
+        <!-- User Card & Plan Starts -->
+        <div class="row">
+          <!-- User Card starts-->
+          <div class="col-xl-12 col-lg-11 col-md-10">
+            <div class="card user-card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                    <div class="user-avatar-section">
+                      <div class="d-flex justify-content-start">
+                        <!-- <div>
+                          <img class="img-fluid rounded" height="104" width="104" alt="User avatar" />
+                        </div> -->
+                        <ng-template #customAvatar>
+                          <div class="mr-1 ml-0">
+                            <div
+                              [ngClass]="{
+                                'bg-light-success': data.status == 'active',
+                                'bg-light-secondary': data.status == 'inactive',
+                                'bg-light-warning': data.status == 'pending'
+                              }"
+                              class="rounded p-3"
+                            >
+                              <h2
+                                [ngClass]="{
+                                  'text-success': data.status == 'active',
+                                  'text-secondary': data.status == 'inactive',
+                                  'text-warning': data.status == 'pending'
+                                }"
+                                class="m-0"
+                              >
+                                {{ User.firstName | initials }}
+                              </h2>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <div class="d-flex flex-column ml-1">
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">{{ User.firstName }} {{ User.lastName }}</h4>
+                            <span class="card-text">{{ User.email }}</span>
+                          </div>
+                          <div class="d-flex flex-wrap">
+                            <a routerLink="/apps/user/user-manage/user-add/{{ User.id }}" class="btn btn-primary" rippleEffect
+                              >Edit</a
+                            >
+                            <button routerLink="/apps/user/user-list" class="btn btn-outline-secondary ml-1" rippleEffect>User List</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                    <div class="user-info-wrapper">
+                      <div class="d-flex flex-wrap">
+                        <div class="user-info-title">
+                          <i data-feather="user" class="mr-1"></i>
+                          <span class="card-text user-info-title font-weight-bold mb-0">Username</span>
+                        </div>
+                        <p class="card-text mb-0">{{ User.userName }}</p>
+                      </div>
+                      <!-- <div class="d-flex flex-wrap my-50">
+                        <div class="user-info-title">
+                          <i data-feather="check" class="mr-1"></i>
+                          <span class="card-text user-info-title font-weight-bold mb-0">Status</span>
+                        </div>
+                        <p class="card-text mb-0">Static Status</p>
+                      </div> -->
+                      <div class="d-flex flex-wrap my-50">
+                        <div class="user-info-title">
+                          <i data-feather="star" class="mr-1"></i>
+                          <span class="card-text user-info-title font-weight-bold mb-0">Role</span>
+                        </div>
+                        <p class="card-text mb-0" *ngFor="let role of Roles; let last = last">{{role}}<ng-container *ngIf="!last">,&nbsp;</ng-container></p>
+                      </div>
+                      
+                      <div class="d-flex flex-wrap">
+                        <div class="user-info-title">
+                          <i data-feather="phone" class="mr-1"></i>
+                          <span class="card-text user-info-title font-weight-bold mb-0">Contact</span>
+                        </div>
+                        <p class="card-text mb-0">{{ User.phoneNumber }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /User Card Ends-->
+        </div>
+        <!-- User Card & Plan Ends -->
+      </section>
+      <!-- page users view end -->
+    </div>
+  </div>
+  

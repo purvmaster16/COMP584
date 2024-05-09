@@ -1,0 +1,91 @@
+<div class="card">
+  <div class="card-body">
+    <!-- form -->
+    <form #InfoForm="ngForm" class="validate-form" (ngSubmit)="onSubmit(InfoForm)">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="accountTextarea">Bio</label>
+            <textarea
+              class="form-control"
+              id="accountTextarea"
+              name="accountTextarea"
+              rows="4"
+              placeholder="Your Bio data here..."
+              disabled
+            ></textarea>
+          </div>
+        </div>
+        <!-- <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="account-birth-date">Birth date</label>
+            <ng2-flatpickr
+              [config]="birthDateOptions"
+              id="account-birth-date"
+              name="account-birth-date"
+              placeholder="June 18, 2021"
+            ></ng2-flatpickr>
+          </div>
+        </div> -->
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="accountSelect">Country</label>
+            <select
+              class="form-control"
+              id="accountSelect"
+              name="accountSelect"
+              disabled
+            >
+              <option>USA</option>
+              <option>India</option>
+              <option>Canada</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="account-website">Website</label>
+            <input
+              type="text"
+              class="form-control"
+              name="website"
+              id="account-website"
+              placeholder="Website address"
+              disabled
+            />
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="account-phone">Phone</label>
+            <input
+              type="text"
+              [(ngModel)]="User.phoneNumber"
+              class="form-control"
+              id="account-phone"
+              placeholder="Phone number"
+              name="phone"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <button
+            type="submit"
+            class="btn btn-primary mt-1 mr-1"
+            rippleEffect
+          >
+            Save changes
+          </button>
+          <button
+            type="reset"
+            class="btn btn-outline-secondary mt-1"
+            rippleEffect
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+    <!--/ form -->
+  </div>
+</div>
