@@ -7,6 +7,9 @@ using ERP.User.Infrastructure.Data;
 using ERP.User.Infrastructure.DbInitializer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Configuration;
@@ -31,14 +34,14 @@ namespace ERP.User.API
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-             builder.Services.AddIdentity<Domain.Models.User, IdentityRole>(options =>
-   {
-       // Configure Identity options
-       options.User.RequireUniqueEmail = true; // Require unique email addresses
-   })
+            builder.Services.AddIdentity<Domain.Models.User, IdentityRole>(options =>
+            {
+                // Configure Identity options
+                options.User.RequireUniqueEmail = true; // Require unique email addresses
+            })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
-          
+
             builder.Services.AddControllers();
 
             builder.Services.AddAuthorization();
@@ -54,6 +57,8 @@ namespace ERP.User.API
             builder.Services.AddScoped<IUserRoleManagementRepository, UserRoleManagementRepository>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+
+
 
             builder.Services.AddCors(options =>
             {
@@ -77,7 +82,9 @@ namespace ERP.User.API
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-                    DbInitialization dbInitialization = new DbInitialization(context);
+                    var userManager = services.GetRequiredService<UserManager<Domain.Models.User>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    DbInitialization dbInitialization = new DbInitialization(context, userManager, roleManager);
                     dbInitialization.IntitializeAsync(services).Wait();
                 }
                 catch (Exception ex)
